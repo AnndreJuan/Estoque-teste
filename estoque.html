@@ -1,0 +1,118 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Controle de Estoque</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <style>
+        /* styles.css */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+.container {
+    max-width: 800px;
+    margin: 50px auto;
+    padding: 20px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+input, button {
+    padding: 10px;
+    margin: 5px 0;
+    width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+button {
+    background: #007bff;
+    color: white;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+button:hover {
+    background: #0056b3;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background: white;
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: left;
+}
+
+th {
+    background: #007bff;
+    color: white;
+}
+    </style>
+    <div class="container">
+        <h2>Controle de Estoque</h2>
+        <input type="text" id="search" placeholder="Digite o nome do item">
+        <button onclick="buscarItem()">Buscar</button>
+        <table>
+            <thead>
+                <tr>
+                    <th>Item</th>
+                    <th>Categoria</th>
+                    <th>Validade</th>
+                    <th>Estoque Atual</th>
+                    <th>Preço Unitário</th>
+                </tr>
+            </thead>
+            <tbody id="resultado"></tbody>
+        </table>
+    <script>
+        /* script.js */
+const estoque = [
+    { nome: "Arroz", categoria: "Alimentos", validade: "15/12/2025", estoque: 50, preco: "R$ 5,00" },
+    { nome: "Feijão", categoria: "Alimentos", validade: "20/11/2024", estoque: 30, preco: "R$ 7,00" },
+    { nome: "Óleo", categoria: "Alimentos", validade: "10/09/2026", estoque: 20, preco: "R$ 9,50" },
+    { nome: "Açúcar", categoria: "Alimentos", validade: "05/07/2025", estoque: 40, preco: "R$ 4,00" },
+    { nome: "Detergente", categoria: "Limpeza", validade: "20/12/2026", estoque: 100, preco: "R$ 2,50" },
+    { nome: "Sabão em pó", categoria: "Limpeza", validade: "18/09/2025", estoque: 60, preco: "R$ 12,00" },
+    { nome: "Papel Higiênico", categoria: "Higiene", validade: "Indeterminado", estoque: 200, preco: "R$ 10,00" }
+];
+
+function buscarItem() {
+    const termo = document.getElementById("search").value.toLowerCase();
+    const resultado = document.getElementById("resultado");
+    resultado.innerHTML = "";
+    
+    const encontrado = estoque.filter(item => item.nome.toLowerCase().includes(termo));
+    
+    if (encontrado.length > 0) {
+        encontrado.forEach(item => {
+            const row = `<tr>
+                            <td>${item.nome}</td>
+                            <td>${item.categoria}</td>
+                            <td>${item.validade}</td>
+                            <td>${item.estoque}</td>
+                            <td>${item.preco}</td>
+                        </tr>`;
+            resultado.innerHTML += row;
+        });
+    } else {
+        resultado.innerHTML = "<tr><td colspan='5'>Item não encontrado</td></tr>";
+    }
+}
+    </script>
+</body>
+</html>
